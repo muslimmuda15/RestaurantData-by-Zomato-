@@ -1,7 +1,7 @@
 package com.app.rachmad.restaurant
 
-import android.support.v4.app.FragmentActivity
-import android.support.v7.widget.RecyclerView
+import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,6 +68,9 @@ class MyItemRecyclerViewAdapter(
             title.text = item.name
             overview.text = item.location?.address?.let { it } ?: run { "" }
             rating.text = item.user_rating?.aggregate_rating
+            reviewCount.text = item.user_rating?.let {
+                it.votes + " reviews"
+            }
         }
 
         with(holder.mView) {
@@ -84,5 +87,6 @@ class MyItemRecyclerViewAdapter(
         val overview = mView.overview
         val rating = mView.rating
         val main = mView.main
+        val reviewCount = mView.review_count
     }
 }

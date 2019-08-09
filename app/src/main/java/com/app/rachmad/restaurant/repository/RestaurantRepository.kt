@@ -1,6 +1,6 @@
 package com.app.rachmad.restaurant.repository
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import android.util.Log
 import com.app.rachmad.restaurant.`object`.BaseRestaurantData
 import com.app.rachmad.restaurant.`object`.RestaurantSingleData

@@ -2,4 +2,5 @@
 <resources>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="margin_normal">8dp</dimen>
+    <dimen name="normal_text">5sp</dimen>
 </resources>

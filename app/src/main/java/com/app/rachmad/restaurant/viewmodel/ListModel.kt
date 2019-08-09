@@ -1,7 +1,7 @@
 package com.app.rachmad.restaurant.viewmodel
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import com.app.rachmad.restaurant.`object`.RestaurantSingleData
 import com.app.rachmad.restaurant.repository.RestaurantRepository
 

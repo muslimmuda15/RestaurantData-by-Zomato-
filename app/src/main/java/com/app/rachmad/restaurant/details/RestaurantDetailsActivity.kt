@@ -2,13 +2,12 @@ package com.app.rachmad.restaurant.details
 
 import android.content.Intent
 import android.net.Uri
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import android.view.ViewGroup
 import com.app.rachmad.restaurant.`object`.RestaurantItemData
 import com.app.rachmad.retrofit.R
@@ -17,7 +16,8 @@ import com.daimajia.slider.library.SliderLayout
 import com.daimajia.slider.library.SliderTypes.BaseSliderView
 import com.daimajia.slider.library.SliderTypes.TextSliderView
 import com.daimajia.slider.library.Tricks.ViewPagerEx
-import kotlinx.android.synthetic.main.activity_movie_details.*
+import com.google.android.material.chip.Chip
+import kotlinx.android.synthetic.main.activity_restaurant_details.*
 import kotlinx.android.synthetic.main.custom_layout_phone.view.*
 
 class RestaurantDetailsActivity : AppCompatActivity(), BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
@@ -51,7 +51,7 @@ class RestaurantDetailsActivity : AppCompatActivity(), BaseSliderView.OnSliderCl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movie_details)
+        setContentView(R.layout.activity_restaurant_details)
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
@@ -181,7 +181,13 @@ class RestaurantDetailsActivity : AppCompatActivity(), BaseSliderView.OnSliderCl
         item.highlights?.let {
             if(it.size > 0){
                 facility_layout_layout.visibility = ViewGroup.VISIBLE
+                it.forEach {
+                    val chip = Chip(facility_collection.context)
+                    chip.text = it
+                    chip.textSize = resources.getDimension(R.dimen.normal_text)
 
+                    facility_collection.addView(chip)
+                }
             }
             else{
                 facility_layout_layout.visibility = ViewGroup.GONE
@@ -189,6 +195,27 @@ class RestaurantDetailsActivity : AppCompatActivity(), BaseSliderView.OnSliderCl
         } ?: run {
             facility_layout_layout.visibility = ViewGroup.GONE
         }
+
+        item.user_rating?.let {
+            it.aggregate_rating?.let {
+                aggregate_rating.text = it
+                rating_star.rating = it.toFloat()
+            } ?: run {
+                aggregate_rating.text = "0"
+            }
+            it.rating_text?.let {
+                rating_description.text = it
+            } ?: run {
+                rating_description.text = ""
+            }
+            it.votes?.let {
+                review_count.text = it + " reviews"
+            } ?: run {
+                review_count.text = "0 reviews"
+            }
+        }
+
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

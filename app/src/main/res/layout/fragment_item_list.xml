@@ -43,12 +43,12 @@
 
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:name="com.app.rachmad.retrofit.ItemFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:context="com.app.rachmad.restaurant.ItemFragment"
         tools:listitem="@layout/fragment_item" />
 </FrameLayout>
