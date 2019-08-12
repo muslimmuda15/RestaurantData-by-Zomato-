@@ -39,11 +39,15 @@ data class RestaurantItemData (
         val photo_count: String?,
         val phone_numbers: String?,
         val photos: ArrayList<Photo>?,
-        val all_reviews: SingleReview?
+        val all_reviews: ReviewList?
+): Serializable
+
+data class ReviewList(
+        val reviews: ArrayList<SingleReview>?
 ): Serializable
 
 data class SingleReview(
-        val reviews: ArrayList<AllReviewRestaurantData>
+        val review: AllReviewRestaurantData
 ): Serializable
 
 data class AllReviewRestaurantData(
