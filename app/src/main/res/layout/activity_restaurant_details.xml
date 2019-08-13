@@ -231,6 +231,36 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/menu_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?attr/selectableItemBackground"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginEnd="16dp"
+                                android:background="@drawable/ic_restaurant_menu_black_24dp"/>
+
+                            <TextView
+                                android:id="@+id/menu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:text="Menu"
+                                android:textStyle="bold"
+                                android:layout_marginEnd="8dp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:id="@+id/book_layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

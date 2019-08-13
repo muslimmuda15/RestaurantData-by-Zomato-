@@ -204,6 +204,21 @@ class RestaurantDetailsActivity : AppCompatActivity(), BaseSliderView.OnSliderCl
             url_layout.visibility = ViewGroup.GONE
         }
 
+        item.menu_url?.let {
+            if(it.isNullOrBlank()){
+                menu_layout.visibility = ViewGroup.GONE
+            }
+            else{
+                menu_layout.visibility = ViewGroup.VISIBLE
+                menu.text = Html.fromHtml("<a href=\""+it+"\">Menu</a>")
+                menu.isClickable = true
+                menu.movementMethod = LinkMovementMethod.getInstance()
+
+            }
+        } ?: run {
+            menu_layout.visibility = ViewGroup.GONE
+        }
+
         item.book_url?.let {
             if(it.isNullOrBlank()){
                 book_layout.visibility = ViewGroup.GONE
