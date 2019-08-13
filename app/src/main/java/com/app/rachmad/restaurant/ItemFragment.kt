@@ -13,7 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.app.rachmad.restaurant.`object`.RestaurantItemData
 import com.app.rachmad.restaurant.viewmodel.ListModel
-import com.app.rachmad.retrofit.R
+import com.app.rachmad.restaurant.R
 import kotlinx.android.synthetic.main.fragment_item_list.*
 import kotlinx.android.synthetic.main.fragment_item_list.view.*
 
@@ -37,19 +37,11 @@ class ItemFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_item_list, container, false)
-
+    private fun loadData(view: View, adapter: MyItemRecyclerViewAdapter, isRefreshing: Boolean){
         val viewModel = ViewModelProviders.of(this).get(ListModel::class.java)
 
         val connection = viewModel.getConnectionLive()
-        val errorText = viewModel.getError()
         viewModel.restaurant()
-
-        val adapter = MyItemRecyclerViewAdapter(activity!!, listener)
-        view.list.layoutManager = LinearLayoutManager(this.context)
-        view.list.adapter = adapter
 
         // Set the adapter
         if (view.list is RecyclerView) {
@@ -60,7 +52,10 @@ class ItemFragment : Fragment() {
                         loading.visibility = View.GONE
                         list.visibility = ViewGroup.GONE
                         error.visibility = ViewGroup.VISIBLE
-                        error_text.text = errorText
+                        error_text.text = "Error: Cannot get data, make sure you are connect the internet and try again!"
+                        if(isRefreshing){
+                            refresh_layout.isRefreshing = false
+                        }
                     }
                     0 -> {
                         Log.d("data", "LOADING")
@@ -69,15 +64,44 @@ class ItemFragment : Fragment() {
                         error.visibility = ViewGroup.GONE
                     }
                     1 -> {
-                        Log.d("data", "SUCCESS")
-                        loading.visibility = View.GONE
-                        list.visibility = ViewGroup.VISIBLE
-                        error.visibility = ViewGroup.GONE
-                        adapter.submitList(viewModel.getMovieList())
+                        val listData = viewModel.getMovieList()
+                        if(listData.size > 0) {
+                            Log.d("data", "SUCCESS")
+                            loading.visibility = View.GONE
+                            list.visibility = ViewGroup.VISIBLE
+                            error.visibility = ViewGroup.GONE
+                            adapter.submitList(listData)
+                        }
+                        else{
+                            Log.d("data", "ERROR => ")
+                            loading.visibility = View.GONE
+                            list.visibility = ViewGroup.GONE
+                            error.visibility = ViewGroup.VISIBLE
+                            error_text.text = "Something wrong, we cannot get the data, please refresh!"
+                        }
+                        if (isRefreshing) {
+                            refresh_layout.isRefreshing = false
+                        }
                     }
                 }
             })
         }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_item_list, container, false)
+
+        val adapter = MyItemRecyclerViewAdapter(activity!!, listener)
+        view.list.layoutManager = LinearLayoutManager(this.context)
+        view.list.adapter = adapter
+
+        loadData(view, adapter, false)
+
+        view.refresh_layout.setOnRefreshListener {
+            loadData(view, adapter, true)
+        }
+
         return view
     }
 

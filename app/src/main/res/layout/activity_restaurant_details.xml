@@ -11,15 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:elevation="1dp"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        android:elevation="1dp">
 
         <!--<TextView-->
-            <!--android:id="@+id/restaurant_name"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Restaurant Name"-->
-            <!--android:textColor="@color/white"/>-->
+        <!--android:id="@+id/restaurant_name"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Restaurant Name"-->
+        <!--android:textColor="@color/white"/>-->
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView

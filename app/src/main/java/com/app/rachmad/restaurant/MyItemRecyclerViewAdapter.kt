@@ -8,7 +8,7 @@ import android.view.ViewGroup
 
 
 import com.app.rachmad.restaurant.ItemFragment.OnListFragmentInteractionListener
-import com.app.rachmad.retrofit.R
+import com.app.rachmad.restaurant.R
 
 import kotlinx.android.synthetic.main.fragment_item.view.*
 import com.app.rachmad.restaurant.`object`.RestaurantItemData

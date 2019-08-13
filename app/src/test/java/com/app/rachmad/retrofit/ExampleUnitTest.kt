@@ -1,4 +1,4 @@
-package com.app.rachmad.retrofit
+package com.app.rachmad.restaurant
 
 import org.junit.Test
 

@@ -15,7 +15,7 @@ import android.view.ViewTreeObserver
 import androidx.core.content.ContextCompat
 import com.app.rachmad.restaurant.GlideApp
 import com.app.rachmad.restaurant.`object`.RestaurantItemData
-import com.app.rachmad.retrofit.R
+import com.app.rachmad.restaurant.R
 import com.daimajia.slider.library.Animations.DescriptionAnimation
 import com.daimajia.slider.library.SliderLayout
 import com.daimajia.slider.library.SliderTypes.BaseSliderView
@@ -28,6 +28,9 @@ import kotlinx.android.synthetic.main.custom_layout_phone.view.*
 import kotlinx.android.synthetic.main.custom_layout_review.view.*
 import kotlinx.android.synthetic.main.custom_layout_review.view.rating_description
 import kotlinx.android.synthetic.main.custom_layout_review.view.time
+import androidx.core.content.ContextCompat.startActivity
+import java.util.*
+
 
 class RestaurantDetailsActivity : AppCompatActivity(), BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
     override fun onSliderClick(slider: BaseSliderView?) {
@@ -117,6 +120,8 @@ class RestaurantDetailsActivity : AppCompatActivity(), BaseSliderView.OnSliderCl
                     if (transparent <= 255) {
                         toolbar.background.alpha = transparent
                     }
+                    else if(transparent > 255)
+                        toolbar.background.alpha = 255
                 }
             }
         }
@@ -130,6 +135,16 @@ class RestaurantDetailsActivity : AppCompatActivity(), BaseSliderView.OnSliderCl
             }else {
                 address_layout.visibility = ViewGroup.VISIBLE
                 address.text = it.address
+
+                address_layout.setOnClickListener { _ ->
+//                    val ARG_GOOGLE_MAP_URL = "https://www.google.com/maps/search/?api=1&query="
+//                    val ARG_GOOGLE_MAP_URL = "http://maps.google.com/maps?q=loc:" + it.latitude + "," + it.longitude + " (" + it.address.replace(Regex("\\s"), "+") + ")"
+                    val ARG_GOOGLE_MAP_URL = String.format(Locale.ENGLISH, "geo:0,0?q=${(restaurantItemData?.name + "+" + it.address).replace(Regex("\\s"), "+")}");
+                    val intent = Intent(android.content.Intent.ACTION_VIEW,
+                            Uri.parse("$ARG_GOOGLE_MAP_URL"))
+                    startActivity(intent)
+
+                }
             }
         } ?: run {
             address_layout.visibility = ViewGroup.GONE
@@ -291,10 +306,16 @@ class RestaurantDetailsActivity : AppCompatActivity(), BaseSliderView.OnSliderCl
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             android.R.id.home -> {
+//                toolbar.background.alpha = 255
                 finish()
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+//        toolbar.background.alpha = 255
+        super.onBackPressed()
     }
 }
